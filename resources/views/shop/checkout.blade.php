@@ -6,7 +6,7 @@
 
 @section('content')
 	@if(Session::has('cart'))
-		<div class="back">
+		<div class="back container" style="margin-top: 100px;">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
 				<h1>Checkout</h1>

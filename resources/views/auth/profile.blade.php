@@ -5,7 +5,7 @@ My Profile
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="row" style="margin-top: 100px;">
         <div class="col-md-8 col-md-offset-2">
             <h2>Profile</h2>
             <hr>

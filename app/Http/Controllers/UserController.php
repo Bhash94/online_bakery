@@ -40,7 +40,7 @@ class UserController extends Controller
     	]);
 
     	if(Auth::attempt(['email'=>$request->input('email'), 'password'=>$request->input('password')])) {
-    		return redirect()->route('user.profile');
+    		return redirect()->route('product.index');
     	}
 
     	return redirect()->back();
@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function getLogout(){
     	Auth::logout();
-    	return redirect()->back();
+    	return redirect()->route('user.login');
     }
 
 

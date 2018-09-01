@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/',[
-		'uses' => 'HomeController@getHome',
-		'as' => 'home.home',
-]);
-Route::get('/burgers', [
+//Route::get('/',[
+//		'uses' => 'HomeController@getHome',
+//		'as' => 'home.home',
+//]);
+Route::get('/', [
 		'uses' => 'ProductController@getIndex',
 		'as' => 'product.index',
 	]);
@@ -62,28 +62,27 @@ Route::group(['middleware'=>'guest'], function() {
 		'as' => 'user.register',
 	]);
 
-Route::post('/register', [
+    Route::post('/register', [
 		'uses' => 'UserController@postRegister',
 		'as' => 'user.register',
 	]);
-Route::get('/login', [
+    Route::get('/login', [
 		'uses' => 'UserController@getLogin',
 		'as' => 'user.login',
 	]);
 
-Route::post('/login', [
+    Route::post('/login', [
 		'uses' => 'UserController@postLogin',
 		'as' => 'user.login',
 	]);
-
 });
 
-Route:: group(['middleware'=>'auth'], function() {
+Route::post('/logout', [
+    'uses' => 'UserController@getLogout',
+    'as' => 'user.logout',
+]);
 
-	Route::get('/logout', [
-		'uses' => 'UserController@getLogout',
-		'as' => 'user.logout',
-	]);
+Route:: group(['middleware'=>'auth'], function() {
 
 	Route::get('/user/profile', [
 		'uses' => 'HomeController@getProfile',
@@ -93,5 +92,25 @@ Route:: group(['middleware'=>'auth'], function() {
 
 });
 
+Route::get('reserve', 'ReserveController@index')->name('reserve');
+
+Route::get('/table/{id}', 'ReserveController@table');
+
+Route::post('/table/reserve/{id}', 'ReserveController@reserve');
+
+Route::post('/cancel/{id}', 'ReserveController@cancel');
+
+Route::get('/table/{id}/payment', [
+    'uses' => 'ReserveController@payment',
+    'as' => 'payment',
+
+]);
+
+Route::post('/table/{id}/payment', [
+    'uses' => 'ReserveController@postPayment',
+    'as' => 'user.payment',
+
+]);
+//Route::get('/table/{id}/payment', 'ReserveController@payment')->name('payment');
 
 

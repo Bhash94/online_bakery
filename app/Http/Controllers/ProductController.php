@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Stripe\Stripe;
 use Stripe\Charge;
-use App\cart;
+use App\Cart;
 use App\Order;
 use Session;
 use Auth;
@@ -95,7 +95,7 @@ class ProductController extends Controller
         $oldcart = Session::get('cart');
         $cart = new cart($oldcart);
 
-        \Stripe\Stripe::setApiKey('sk_test_ZVWT7pFEcdE6eCnQvOO4iC1O'); 
+        \Stripe\Stripe::setApiKey('sk_test_ZVWT7pFEcdE6eCnQvOO4iC1O');
         try{
                   $charge = \Stripe\Charge::create(array(
                   "amount" => $cart->totalprice * 100,
