@@ -17,7 +17,7 @@
 //]);
 Route::get('/', [
 		'uses' => 'ProductController@getIndex',
-		'as' => 'product.index',
+		'as' => 'product.home',
 	]);
 
 Route::get('/add-to-cart/{id}', [
@@ -51,9 +51,7 @@ Route::post('/checkout', [
 		'uses' => 'ProductController@postCheckout',
 		'as' => 'checkout',
 		'middleware' => 'auth'
-	]);
-
-
+]);
 
 Route::group(['middleware'=>'guest'], function() {
 
@@ -68,14 +66,16 @@ Route::group(['middleware'=>'guest'], function() {
 	]);
     Route::get('/login', [
 		'uses' => 'UserController@getLogin',
-		'as' => 'user.login',
+		'as' => 'user.loginPage',
 	]);
 
-    Route::post('/login', [
-		'uses' => 'UserController@postLogin',
-		'as' => 'user.login',
-	]);
+
 });
+
+Route::post('/login/authenticated', [
+    'uses' => 'UserController@postLogin',
+    'as' => 'login.authenticated'
+]);
 
 Route::post('/logout', [
     'uses' => 'UserController@getLogout',
@@ -111,6 +111,20 @@ Route::post('/table/{id}/payment', [
     'as' => 'user.payment',
 
 ]);
-//Route::get('/table/{id}/payment', 'ReserveController@payment')->name('payment');
 
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('/home', function (){
+        return view('home');
+    })->name('home');
+    Route::get('/dashboard', function (){
+        $products = \App\Product::all();
+        return view('admin/products', ['products' => $products]);
+    })->name('dashboard');
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('product', 'AdminController');

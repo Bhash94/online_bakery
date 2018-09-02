@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     	$request->session()->put('cart', $cart);
     	#dd($request->session()->get('cart'));
-    	return redirect()->route('product.index');
+    	return redirect()->route('product.home');
     	#return view('shop.index',['products' => $products]);
     }
 
@@ -116,7 +116,7 @@ class ProductController extends Controller
         }
 
         Session::forget('cart');
-        return redirect()->route('product.index')->with('success','Successfully Purchased!! Keep Shopping!!');
+        return redirect()->route('product.home')->with('success','Successfully Purchased!! Keep Shopping!!');
     }
 
 

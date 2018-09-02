@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button> -->
-      <a class="navbar-brand" href="{{ route('product.index')}}">Baker's Delight</a>
+      <a class="navbar-brand" href="/">Baker's Delight</a>
     <!-- </div> -->
 
     <ul class="nav navbar-nav navbar-right">
